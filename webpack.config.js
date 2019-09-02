@@ -30,7 +30,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),   // 生成地址
         publicPath: '/'  // 确保中间件功能可以正确启用
     },
-    mode: 'developent',
+    mode: 'development',
     optimization: {
         usedExports: true
     },
