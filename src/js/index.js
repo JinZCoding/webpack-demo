@@ -30,11 +30,18 @@ function component() {
     return element;
 }
 
-document.body.appendChild(component());
+// document.body.appendChild(component());
+
+let element = component();// 存储element，以在print.js修改时重新渲染
+document.body.appendChild(element)
 
 if(module.hot) {
     module.hot.accept('./print.js', function(){
         console.log('Accepting the updated printMe module!');
-        printMe();
+        // printMe();
+        document.body.removeChild(element);
+        element = component(); // Re-render the "component" to update the click handler
+        element = component(); // 重新渲染 "component"， 以便更新click事件处理函数
+        document.body.appendChild(element);
     })
 }
