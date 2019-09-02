@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { cube } from './math.js';
 import '../css/style.css';
 import Img from '../images/img.jpeg';
 import Data from '../data.xml';
@@ -6,6 +7,7 @@ import printMe from './print.js';
 
 function component() {
     var element = document.createElement('div');
+
     var btn = document.createElement('button');
     var br = document.createElement('br');
 
@@ -27,7 +29,17 @@ function component() {
     element.appendChild(btn);
 
 
-    return element;
+
+    // tree shaking
+    var element1 = document.createElement('pre');
+
+    element1.innerHTML = [
+        '窝窝头 一块钱四个！',
+        '嘿嘿！ 5 cubed is equal to ' + cube(5)
+    ].join('\n\n');
+
+
+    return element1;
 }
 
 // document.body.appendChild(component());
@@ -35,8 +47,8 @@ function component() {
 let element = component();// 存储element，以在print.js修改时重新渲染
 document.body.appendChild(element)
 
-if(module.hot) {
-    module.hot.accept('./print.js', function(){
+if (module.hot) {
+    module.hot.accept('./print.js', function () {
         console.log('Accepting the updated printMe module!');
         // printMe();
         document.body.removeChild(element);
