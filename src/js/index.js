@@ -5,6 +5,10 @@ import Img from '../images/img.jpeg';
 import Data from '../data.xml';
 import printMe from './print.js';
 
+if(process.env.NODE_ENV !== 'production') {
+    console.log('看看看！我现在是开发模式！！')
+}
+
 function component() {
     var element = document.createElement('div');
 
