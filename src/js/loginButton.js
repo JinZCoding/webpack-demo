@@ -1,0 +1,1 @@
+import (/* webpackPrefetcg: true */ 'LognModal')

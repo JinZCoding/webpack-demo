@@ -8,7 +8,8 @@ module.exports = {
     // entry: './src/js/index.js', // 入口文件
     // mode: 'development',  // 开发环境
     entry: {
-        app: './src/js/index.js'
+        app: './src/js/index.js',
+        // another: './src/js/another-module.js'
         // print: './src/js/print.js' //可以删除print.js的入口起点，因为已经在index.js中引用它了
     },
     devtool: 'inline-source-map', // source map可以将编译后的代码映射回原始源代码，可在浏览器中明确指出错误位置
@@ -32,7 +33,11 @@ module.exports = {
     },
     mode: 'development',
     optimization: {
-        usedExports: true
+        usedExports: true,
+        // 使用 optimization.splitChunks 配置选项，防止重复
+        // splitChunks: {
+        //     chunks: 'all'
+        // } 
     },
     module: {
         rules: [
