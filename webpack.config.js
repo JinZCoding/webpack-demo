@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack')
 
 
@@ -15,24 +15,37 @@ module.exports = {
     devtool: 'inline-source-map', // source map可以将编译后的代码映射回原始源代码，可在浏览器中明确指出错误位置
     devServer: {    // webpack-dev-server 实时重新加载
         contentBase: './dist',
-        hot: true
+        // hot: true
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: '管理输出'
+            // title: '管理输出'
+            title: 'Caching'
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
     output: { // 输出
         // filename: 'main.js',
         // filename: 'bundle.js',
-        filename: '[name].bundle.js',   // bundle名称
+        // filename: '[name].bundle.js',   // bundle名称
+        // 热更新(HMR)不能和[chunkhash]同时使用。
+        filename: '[name].[hash].js',   // bundle名称
         path: path.resolve(__dirname, 'dist'),   // 生成地址
         publicPath: '/'  // 确保中间件功能可以正确启用
     },
     mode: 'development',
     optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vender: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'venders',
+                    chunks: 'all'
+                }
+            }
+        },
         usedExports: true,
         // 使用 optimization.splitChunks 配置选项，防止重复
         // splitChunks: {

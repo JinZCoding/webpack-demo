@@ -1,4 +1,4 @@
-// import _ from 'lodash';
+import _ from 'lodash';
 import { cube } from './math.js';
 import '../css/style.css';
 import Img from '../images/img.jpeg';
@@ -16,18 +16,18 @@ import printMe from './print.js';
 //     }).catch(error => '嘿嘿嘿！')
 // }
 
-async function getComponent() {
-    var element = document.createElement('div');
-    const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash')
+// async function getComponent() {
+//     var element = document.createElement('div');
+//     const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash')
 
-    element.innerHTML = _.join(['窝窝头，一块钱四个 ', '嘿嘿!'], '');
+//     element.innerHTML = _.join(['窝窝头，一块钱四个 ', '嘿嘿!'], '');
 
-    return element;
-}
+//     return element;
+// }
 
-getComponent().then(component => {
-    document.body.appendChild(component)
-})
+// getComponent().then(component => {
+//     document.body.appendChild(component)
+// })
 
 // if(process.env.NODE_ENV !== 'production') {
 //     console.log('看看看！我现在是开发模式！！')
@@ -85,3 +85,26 @@ getComponent().then(component => {
 //         document.body.appendChild(element);
 //     })
 // }
+
+
+function component() {
+    var element = document.createElement('div');
+
+    var btn = document.createElement('button');
+    var br = document.createElement('br');
+
+    btn.innerHTML = '点我点我点我';
+    element.innerHTML = _.join(['窝窝头', '一块钱四个~~~'], ' ');
+    element.appendChild(br)
+    element.appendChild(btn);
+
+    btn.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
+        var print = module.default;
+
+        print();
+    })
+
+    return element;
+}
+
+document.body.appendChild(component());
